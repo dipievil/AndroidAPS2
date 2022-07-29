@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "416589399660",
+    "project_id": "senac-android-aps2",
+    "storage_bucket": "senac-android-aps2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416589399660:android:b259523fa15374554bba49",
+        "android_client_info": {
+          "package_name": "br.dipievil.androidadvaps2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416589399660-ttvhignhba9seepo77gssagm2b6r4nrl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0LPwOhl53yXHyiolcJ9OcZczcuPmYpU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416589399660-ttvhignhba9seepo77gssagm2b6r4nrl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416589399660:android:6e1ebb0ebdac9a894bba49",
+        "android_client_info": {
+          "package_name": "br.dipievil.androidaps2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416589399660-ttvhignhba9seepo77gssagm2b6r4nrl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0LPwOhl53yXHyiolcJ9OcZczcuPmYpU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416589399660-ttvhignhba9seepo77gssagm2b6r4nrl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
