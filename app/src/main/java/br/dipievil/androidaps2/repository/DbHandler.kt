@@ -2,26 +2,24 @@ package br.dipievil.androidaps2.repository
 
 import android.util.Log
 import br.dipievil.androidaps2.Statics
-import br.dipievil.androidaps2.model.Task
-import br.dipievil.androidaps2.model.TaskItem
+import br.dipievil.androidaps2.data.model.TaskItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class DbHandler {
 
-    private lateinit var _db: DatabaseReference
+    private lateinit var db: DatabaseReference
 
     fun addTask(description: String, status: Boolean){
 
-        _db = FirebaseDatabase.getInstance().reference
+        db = FirebaseDatabase.getInstance().reference
 
-        val task = Task.create()
+        val task = TaskItem(null,description,status)
 
-        task.title = description
-        task.status = status
-
-        val newTask = _db.child(Statics.FIREBASE_TASK).push()
+        var newTask = db.child(Statics.FIREBASE_TASK).push()
         task.id = newTask.key
 
         newTask.setValue(task)
@@ -29,34 +27,25 @@ class DbHandler {
 
     fun loadTaskList(dataSnapshot: DataSnapshot) : MutableList<TaskItem> {
 
-        _db = FirebaseDatabase.getInstance().reference
-
         var taskList: MutableList<TaskItem> = mutableListOf()
 
-        Log.d("MainActivity", "loadTaskList")
+        var db = Firebase.firestore
 
-        val tasks = dataSnapshot.children.iterator()
-
-        if (tasks.hasNext()) {
-
-            taskList!!.clear()
-
-            val listIndex = tasks.next()
-            val itemsIterator = listIndex.children.iterator()
-
-            while (itemsIterator.hasNext()) {
-
-                val currentItem = itemsIterator.next()
-
-                val map = currentItem.getValue() as HashMap<String, Any>
-                var id = currentItem.key as String
-                var status = map.get("status") as Boolean
-                var title = map.get("title") as String
-                val task = TaskItem( id, title, status )
-                taskList!!.add(task)
+        var tasks = db.collection("todo-list")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    var id = document.id as String
+                    var status = document.data.getValue("status") as Boolean
+                    var title = document.data.getValue("title") as String
+                    val task = TaskItem(id, title, status)
+                    taskList!!.add(task)
+                }
             }
-        }
+            .addOnFailureListener { exception ->
+                Log.d("error", "Error getting documents: ", exception)
+            }
 
-        return taskList
+        return taskList;
     }
 }
