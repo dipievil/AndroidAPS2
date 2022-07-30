@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             val taskTitle = etTitle.text.toString()
             Log.i("text",taskTitle)
             if(taskTitle.isNotEmpty()){
-                val taskItem = TaskItem(taskTitle)
+                val taskItem = TaskItem(null,taskTitle,false)
                 listItemsAdapter.addTask(taskItem)
                 etTitle.text.clear()
             }
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     var _taskListener: ValueEventListener = object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
-            loadTaskList(dataSnapshot)
+            //loadTaskList(dataSnapshot)
         }
         override fun onCancelled(databaseError: DatabaseError) {
             Log.w("MainActivity", "loadItem:onCancelled", databaseError.toException())

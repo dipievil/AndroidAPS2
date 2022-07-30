@@ -27,11 +27,11 @@ class DbHandler {
         newTask.setValue(task)
     }
 
-    fun loadTaskList(dataSnapshot: DataSnapshot) : MutableList<Task> {
+    fun loadTaskList(dataSnapshot: DataSnapshot) : MutableList<TaskItem> {
 
         _db = FirebaseDatabase.getInstance().reference
 
-        var taskList: MutableList<Task> = mutableListOf()
+        var taskList: MutableList<TaskItem> = mutableListOf()
 
         Log.d("MainActivity", "loadTaskList")
 
@@ -47,13 +47,12 @@ class DbHandler {
             while (itemsIterator.hasNext()) {
 
                 val currentItem = itemsIterator.next()
-                val task = Task.create()
 
                 val map = currentItem.getValue() as HashMap<String, Any>
-
-                task.id = currentItem.key
-                task.status = map.get("status") as Boolean?
-                task.title = map.get("title") as String?
+                var id = currentItem.key as String
+                var status = map.get("status") as Boolean
+                var title = map.get("title") as String
+                val task = TaskItem( id, title, status )
                 taskList!!.add(task)
             }
         }

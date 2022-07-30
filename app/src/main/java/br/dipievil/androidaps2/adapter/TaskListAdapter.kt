@@ -12,11 +12,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import br.dipievil.androidaps2.R
 import br.dipievil.androidaps2.model.Task
+import br.dipievil.androidaps2.model.TaskItem
 import br.dipievil.androidaps2.repository.DbHandler
 import com.google.firebase.database.DataSnapshot
 
 class TaskListAdapter(
-    private val tasks: MutableList<Task>, private val context: Context
+    private val tasks: MutableList<TaskItem>, private val context: Context
 ) : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
 
     private val dbHandler: DbHandler = DbHandler()
@@ -30,7 +31,7 @@ class TaskListAdapter(
         return TaskViewHolder(view)
     }
 
-    fun addTask(taskItem : Task){
+    fun addTask(taskItem: TaskItem){
         tasks.add(taskItem)
         Log.i("getCount",tasks.size.toString())
         notifyItemInserted(tasks.size - 1)
@@ -68,7 +69,7 @@ class TaskListAdapter(
     }
 
     fun loadTasks(dataSnapshot: DataSnapshot){
-        tasks = dbHandler.loadTaskList(dataSnapshot)
+        //tasks = dbHandler.loadTaskList(dataSnapshot)
     }
 
     override fun getItemCount(): Int {

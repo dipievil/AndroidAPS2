@@ -6,6 +6,6 @@ class Task {
     }
 
     var id: String? = null
-    var title: String? = null
-    var status: Boolean? = false
+    var title: String = ""
+    var status: Boolean = false
 }
