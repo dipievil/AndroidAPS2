@@ -56,7 +56,7 @@ class DbHandler {
     fun deleteTask(id : String){
         var db = Firebase.firestore
 
-        db.collection("cities").document(id)
+        db.collection("cities").document("/todo-list/"+id)
             //.whereEqualTo("id", id).get()
             .delete()
             .addOnSuccessListener { Log.d("FIREBASE", "DocumentSnapshot successfully deleted!") }
