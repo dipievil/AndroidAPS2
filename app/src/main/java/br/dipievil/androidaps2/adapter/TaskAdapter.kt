@@ -25,6 +25,10 @@ class TaskAdapter(
             false
         )
         Log.i("onCreateViewHolder", "ViewHolder Created")
+
+        var dbTasks = dbHandler.getTasks()
+        if(dbTasks.isNotEmpty())
+            tasks = dbTasks;
         return TaskHolder(view)
     }
 
@@ -35,16 +39,19 @@ class TaskAdapter(
 
         notifyItemInserted(tasks.size - 1)
         notifyDataSetChanged()
-        Log.i("addTask",taskItem.title.toString())
-        //Toast.makeText(p, "Tarefa adicionada com sucesso", Toast.LENGTH_SHORT).show()
+        Log.i("addTask",taskItem.title)
     }
 
     fun deleteDones(){
+        for(task in tasks){
+            if(!task.status){
+                dbHandler.deleteTask(task.id as String)
+            }
+        }
         tasks.removeAll{ item ->
             item.status
         }
         notifyDataSetChanged()
-
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
@@ -58,15 +65,6 @@ class TaskAdapter(
             toggleStrike(holder.tvTaskTitle, isChecked)
             tasks[position].status = !tasks[position].status
         }
-        /*
-        holder.itemView.apply{
-            val curItem = tasks[position]
-            holder.tvTaskTitle.text = curItem.title
-            holder.cbDone.isChecked = curItem.status
-
-            toggleStrike(holder.tvTaskTitle,holder.cbDone.isChecked)
-        }
-         */
     }
 
     class TaskHolder(view: View): RecyclerView.ViewHolder(view){
